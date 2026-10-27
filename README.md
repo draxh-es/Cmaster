@@ -20,8 +20,8 @@ and undefined behavior are caught at runtime.
 
 | # | Topic | Status |
 |---|---|---|
-| 01 | Pointers, arrays and structs in functions, `malloc`, dynamic arrays | ⏳ |
-| 02 | Strings and character arrays | |
+| 01 | Pointers, arrays and structs in functions, `malloc`, dynamic arrays | ✅ |
+| 02 | Strings and character arrays | ⏳ |
 | 03 | File I/O | |
 | 04 | Multi-file projects, headers, `static`, Makefiles | |
 | 05 | Bit manipulation: masks, flags, register-style code | |

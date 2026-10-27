@@ -28,8 +28,11 @@
 // Exercise 1: Return the length of s, not counting the '\0'.
 size_t my_strlen(const char *s) {
     // TODO
-    (void)s;
-    return 0;
+    size_t counter = 0;
+    for(size_t i = 0; s[i]!='\0';i++){
+        counter++;
+    }
+    return counter;
 }
 
 // Exercise 2: Copy src into dst, where dst can hold dst_size bytes.
@@ -39,59 +42,108 @@ size_t my_strlen(const char *s) {
 // Example: dst_size 4, src "hello" -> dst becomes "hel", returns 5.
 size_t str_copy(char *dst, size_t dst_size, const char *src) {
     // TODO
-    (void)dst;
-    (void)dst_size;
-    (void)src;
-    return 0;
+    size_t s = my_strlen(src);
+
+    if(dst_size == 0){
+    return s;
+    }
+    if(s>=dst_size){
+        for(size_t i = 0; i<dst_size-1;i++){
+            dst[i]=src[i];
+        }
+        dst[dst_size-1]='\0';
+    }else{
+        for (size_t i = 0; i <= s; i++)
+        {
+        dst[i]=src[i];
+
+        }
+        
+    }
+  
+    return s;
 }
 
 // Exercise 3: Compare a and b character by character.
 // Return 0 if they are equal, a negative number if a comes first,
 // a positive number if b comes first. "ab" comes before "abc".
 int my_strcmp(const char *a, const char *b) {
-    // TODO
-    (void)a;
-    (void)b;
-    return 0;
+    size_t i;
+    for(i = 0 ; a[i]==b[i] && a[i]!='\0' ;i++){
+
+    }
+    return a[i]-b[i];
 }
 
 // Exercise 4: Convert every lowercase letter in s to uppercase, in place.
 // Leave every other character unchanged. Hint: chars are small integers,
 // and 'a'..'z' and 'A'..'Z' are consecutive.
 void to_upper(char *s) {
-    // TODO
-    (void)s;
+  size_t i = 0;
+  while(s[i]!='\0'){
+    if('a'<=s[i] && s[i]<='z')
+    s[i]-=32;
+    i++;
+  }
+ 
 }
 
 // Exercise 5: Return how many times c appears in s.
 size_t count_char(const char *s, char c) {
-    // TODO
-    (void)s;
-    (void)c;
-    return 0;
+    size_t size = my_strlen(s);
+    size_t counter = 0;
+    for(size_t i = 0;i<size;i++){
+        if(s[i]==c)
+        counter++;
+    }
+    return counter;
 }
 
 // Exercise 6: Reverse s in place: "abc" becomes "cba". The '\0' stays at the end.
 void str_reverse(char *s) {
-    // TODO
-    (void)s;
+   size_t i =0;
+   size_t size = my_strlen(s);
+   while(i<size/2){
+    char v = s[i];
+    s[i]=s[size-1-i];
+    s[size-1-i]=v;
+    i++;
+   }
+
 }
 
 // Exercise 7: Return a newly allocated copy of s. Return NULL if malloc fails.
 // The caller frees it. Think about how many bytes you need.
 char *str_dup(const char *s) {
-    // TODO
-    (void)s;
-    return NULL;
+    size_t size = my_strlen(s);
+    char* new = malloc((size+1)*sizeof(char));
+    if(new==NULL){
+        return NULL;
+    }
+    for(size_t i = 0;i<=size;i++){
+        new[i]=s[i];
+    }
+
+    return new;
 }
 
 // Exercise 8: Return a newly allocated string holding a followed by b.
 // Example: "foo", "bar" -> "foobar". Return NULL if malloc fails.
 char *str_concat(const char *a, const char *b) {
-    // TODO
-    (void)a;
-    (void)b;
-    return NULL;
+    size_t sa = my_strlen(a);
+    size_t sb = my_strlen(b);
+    char* new = malloc((sa+sb+1)*sizeof(char));
+    if(new == NULL){
+        return NULL;
+    }
+    for(size_t i = 0;i<sa;i++){
+        new[i]=a[i];
+    }
+    for(size_t i = 0; i<=sb;i++){
+        new[i+sa]=b[i];
+    }
+
+    return new;
 }
 
 // Exercise 9: Parse a decimal integer with an optional leading '-'.
@@ -101,10 +153,7 @@ char *str_concat(const char *a, const char *b) {
 // You can ignore overflow for now.
 // Examples: "42" -> 42, "-17" -> -17, "12a" -> error, "" -> error.
 int parse_int(const char *s, int *out) {
-    // TODO
-    (void)s;
-    (void)out;
-    return -1;
+
 }
 
 // Exercise 10: Parse a "key=value" line, like a tiny config/command protocol.
