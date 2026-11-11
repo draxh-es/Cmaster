@@ -153,6 +153,37 @@ char *str_concat(const char *a, const char *b) {
 // You can ignore overflow for now.
 // Examples: "42" -> 42, "-17" -> -17, "12a" -> error, "" -> error.
 int parse_int(const char *s, int *out) {
+size_t size = my_strlen(s);
+size_t i = 0;
+size_t total = 0;
+int isNegative = 0;
+if(s[0]=='\0')
+return -1;
+
+if(s[0]=='-'){
+    if(s[1]=='\0')
+    return -1;
+    isNegative=1;
+    i = 1;
+}
+while(s[i]!='\0'){
+    if(s[i]<='9'&&s[i]>='0'){
+    total *= 10;
+    total += (s[i]-'0');
+    }else{
+        return -1;
+    }
+    i++;
+}
+
+if (isNegative)
+{
+    *out = -total;
+    
+}else{
+    *out = total;
+}
+return 0;
 
 }
 
@@ -165,17 +196,52 @@ int parse_int(const char *s, int *out) {
 //   - the value is not a valid integer (see parse_int)
 // Examples: "temp=23" -> key "temp", value 23.  "temp=" -> error.
 int parse_kv(const char *line, char *key, size_t key_size, int *value) {
-    // TODO
-    (void)line;
-    (void)key;
-    (void)key_size;
-    (void)value;
+    if(!line || !key || !value)
     return -1;
+
+    if(line[0]=='='||line[2]=='\0')
+    return -1;
+
+    size_t i = 0;
+    size_t j = 0;
+    while(line[i]!='\0'){
+        if(i>=key_size-1){
+            key[++i]='\0';
+            return-1;
+        }
+
+        if(line[i]=='='){
+            key[i]='\0';
+            i++;
+            break;
+        }
+
+        key[i]=line[i];
+
+  
+
+
+        i++;
+    }
+
+    
+
+    while(line[i]!='\0'){
+        if(line[i]<0||line[i]>9){
+            return -1;
+        }
+        value[j] = line[i];
+        i++;
+        j++;
+    }
+
+
+
 }
 
 // ============================================================
 // Tests: no need to edit anything below (except the bonus at the end)
-// ============================================================
+// =======================in[]=====================================
 
 #include <string.h>  // tests only: used to check your results
 
